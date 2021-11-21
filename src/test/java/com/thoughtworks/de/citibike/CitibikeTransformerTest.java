@@ -1,7 +1,7 @@
 package com.thoughtworks.de.citibike;
 
 
-import com.thoughtworks.de.wordcount.DefaultJavaTestWithSpark;
+import com.thoughtworks.de.wordcount.DefaultTestWithSpark;
 import org.apache.spark.sql.Column;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -26,7 +26,7 @@ import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.types.DataTypes.DoubleType;
 import static org.junit.Assert.*;
 
-public class CitibikeTransformerJavaTest extends DefaultJavaTestWithSpark {
+public class CitibikeTransformerTest extends DefaultTestWithSpark {
 
     List<Row> sampleCitibikeData = Arrays.asList(
             RowFactory.create(328, "2017-07-01 00:00:08", "2017-07-01 00:05:37", 3242, "Schermerhorn St & Court St", 40.69102925677968, -73.99183362722397, 3397, "Court St & Nelson St", 40.6763947, -73.99869893, 27937, "Subscriber", 1984, 2),

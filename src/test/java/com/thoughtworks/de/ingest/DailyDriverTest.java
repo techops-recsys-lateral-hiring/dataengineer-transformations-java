@@ -1,6 +1,6 @@
 package com.thoughtworks.de.ingest;
 
-import com.thoughtworks.de.wordcount.DefaultJavaTestWithSpark;
+import com.thoughtworks.de.wordcount.DefaultTestWithSpark;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.junit.Ignore;
@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-public class DailyDriverJavaTest extends DefaultJavaTestWithSpark {
+public class DailyDriverTest extends DefaultTestWithSpark {
 
     @Ignore
     @Test

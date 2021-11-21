@@ -7,7 +7,7 @@ import org.junit.Before;
 import java.io.Serializable;
 
 
-public class DefaultJavaTestWithSpark implements Serializable {
+public class DefaultTestWithSpark implements Serializable {
     protected transient SparkSession spark;
 
     @Before

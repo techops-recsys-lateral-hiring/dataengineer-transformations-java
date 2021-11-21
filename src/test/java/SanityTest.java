@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class SanityJavaTest {
+public class SanityTest {
 
     @Test
     public void testTruth() {

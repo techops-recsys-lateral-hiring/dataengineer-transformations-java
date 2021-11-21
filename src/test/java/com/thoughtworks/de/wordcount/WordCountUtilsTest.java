@@ -2,7 +2,7 @@ package com.thoughtworks.de.wordcount;
 
 import org.junit.Test;
 
-public class WordCountUtilsJavaTest extends DefaultJavaTestWithSpark {
+public class WordCountUtilsTest extends DefaultTestWithSpark {
     @Test
     public void testItOutputsFilesContainingTheExpectedData() {
 
