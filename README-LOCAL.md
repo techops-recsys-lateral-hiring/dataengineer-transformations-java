@@ -34,12 +34,23 @@ scripts\install.bat
 ./batect unit-test
 ```
 
+#### Run integration tests
+```bash
+./batect integration-test
+```
+
 ### Run style checks
 ```bash
 ./batect style-checks
 ```
 This is running the linter and a type checker.
 
+
+## Setup Process
+* Clone the repo
+* Package the project with `./gradlew clean build`
+* Ensure that you're able to run the tests with `./gradlew test` (some are ignored)
+* Sample data is available in the `src/test/resource/data` directory
 
 ## Jobs
 There are two applications in this repo: Word Count, and Citibike.
@@ -66,11 +77,16 @@ A single `*.csv` file containing data similar to:
 ...
 ```
 
+#### Run the Scala version of job
+Please make sure to package the code before submitting the spark job
+```
+spark-submit --class thoughtworks.wordcount.WordCount --master local target/scala-2.12/tw-pipeline_2.12-0.1.0-SNAPSHOT.jar
+```
 
-#### Run the job
-
-```bash
-INPUT_FILE_PATH="src/test/resources/data/words.txt" JOB=com.thoughtworks.de.wordcount.WordCount ./batect run-job
+#### Run the Java version of job
+Please make sure to package the code before submitting the spark job
+```
+spark-submit --class thoughtworks.wordcount.WordCountJava --master local target/scala-2.12/tw-pipeline_2.12-0.1.0-SNAPSHOT.jar
 ```
 
 ## Citibike
@@ -80,7 +96,7 @@ file needs to be processed in multiple steps. There is a pipeline running these 
 
 ![citibike pipeline](docs/citibike.png)
 
-There is a dump of the datalake for this under `test/resources/data/citibike.csv` with historical data.
+There is a dump of the datalake for this under `test/resources/citibike/citibike.csv` with historical data.
 
 ### Ingest
 Reads a `*.csv` file and transforms it to parquet format. The column names will be sanitized (whitespaces replaced).
@@ -101,10 +117,15 @@ Historical bike ride `*.csv` file:
 ...
 ```
 
-##### Run the job
-
-```bash
-INPUT_FILE_PATH="src/test/resources/data/citibike.csv" JOB=com.thoughtworks.de.ingest.DailyDriver ./batect run-job
+##### Run the Scala version of job
+Please make sure to package the code before submitting the spark job
+```
+spark-submit --class thoughtworks.ingest.DailyDriver --master local target/scala-2.12/tw-pipeline_2.12-0.1.0-SNAPSHOT.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
+```
+##### Run the Java version of job
+Please make sure to package the code before submitting the spark job
+```
+spark-submit --class thoughtworks.ingest.DailyDriverJava --master local target/scala-2.12/tw-pipeline_2.12-0.1.0-SNAPSHOT.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
 ```
 
 ### Distance calculation
@@ -130,12 +151,8 @@ Historical bike ride `*.parquet` files
 ```
 
 
-##### Run the job
-
-```bash
-INPUT_FILE_PATH=${output_parquest_ingest} JOB=com.thoughtworks.de.citibike.CitibikeTransformer ./batect run-job
+##### Run the Java version of job
+Please make sure to package the code before submitting the spark job
 ```
-
-## Running the code outside container
-
-If you would like to run the code in your laptop locally without containers then please follow instructions (README-LOCAL.md).
+spark-submit --class thoughtworks.citibike.CitibikeTransformer --master local target/libs/dataengineer-transformations-java -1.0-SNAPSHOT.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
+```
