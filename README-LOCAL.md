@@ -77,16 +77,10 @@ A single `*.csv` file containing data similar to:
 ...
 ```
 
-#### Run the Scala version of job
-Please make sure to package the code before submitting the spark job
-```
-spark-submit --class thoughtworks.wordcount.WordCount --master local target/scala-2.12/tw-pipeline_2.12-0.1.0-SNAPSHOT.jar
-```
-
 #### Run the Java version of job
 Please make sure to package the code before submitting the spark job
 ```
-spark-submit --class thoughtworks.wordcount.WordCountJava --master local target/scala-2.12/tw-pipeline_2.12-0.1.0-SNAPSHOT.jar
+spark-submit --class com.thoughtworks.de.wordcount.WordCount --master local build/libs/dataengineer.jar
 ```
 
 ## Citibike
@@ -96,7 +90,7 @@ file needs to be processed in multiple steps. There is a pipeline running these 
 
 ![citibike pipeline](docs/citibike.png)
 
-There is a dump of the datalake for this under `test/resources/citibike/citibike.csv` with historical data.
+There is a dump of the datalake for this under `test/resources/data/citibike.csv` with historical data.
 
 ### Ingest
 Reads a `*.csv` file and transforms it to parquet format. The column names will be sanitized (whitespaces replaced).
@@ -117,15 +111,10 @@ Historical bike ride `*.csv` file:
 ...
 ```
 
-##### Run the Scala version of job
-Please make sure to package the code before submitting the spark job
-```
-spark-submit --class thoughtworks.ingest.DailyDriver --master local target/scala-2.12/tw-pipeline_2.12-0.1.0-SNAPSHOT.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
-```
 ##### Run the Java version of job
 Please make sure to package the code before submitting the spark job
 ```
-spark-submit --class thoughtworks.ingest.DailyDriverJava --master local target/scala-2.12/tw-pipeline_2.12-0.1.0-SNAPSHOT.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
+spark-submit --class com.thoughtworks.de.ingest.DailyDriverJava --master local build/libs/dataengineer.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
 ```
 
 ### Distance calculation
@@ -154,5 +143,5 @@ Historical bike ride `*.parquet` files
 ##### Run the Java version of job
 Please make sure to package the code before submitting the spark job
 ```
-spark-submit --class thoughtworks.citibike.CitibikeTransformer --master local target/libs/dataengineer-transformations-java -1.0-SNAPSHOT.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
+spark-submit --class com.thoughtworks.de.citibike.CitibikeTransformer --master local target/libs/dataengineer-transformations-java -1.0-SNAPSHOT.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
 ```
