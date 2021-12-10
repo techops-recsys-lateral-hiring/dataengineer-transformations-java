@@ -9,7 +9,7 @@ We use [`batect`](https://batect.dev/) to dockerise the tasks in this exercise.
 `batect` is a lightweight wrapper around Docker that helps to ensure tasks run consistently (across linux, mac windows).
 With `batect`, the only dependencies that need to be installed are Docker and Java >=8. Every other dependency is managed inside Docker containers.
 Please make sure you have the following installed and can run them
-* Docker (greater than 4.0.0)
+* Docker
 * Java (1.8)
 
 You could use following instructions as guidelines to install Docker and Java.
@@ -34,12 +34,23 @@ scripts\install.bat
 ./batect unit-test
 ```
 
+#### Run integration tests
+```bash
+./batect integration-test
+```
+
 ### Run style checks
 ```bash
 ./batect style-checks
 ```
 This is running the linter and a type checker.
 
+
+## Setup Process
+* Clone the repo
+* Package the project with `./gradlew clean build`
+* Ensure that you're able to run the tests with `./gradlew test` (some are ignored)
+* Sample data is available in the `src/test/resource/data` directory
 
 ## Jobs
 There are two applications in this repo: Word Count, and Citibike.
@@ -66,11 +77,10 @@ A single `*.csv` file containing data similar to:
 ...
 ```
 
-
-#### Run the job
-
-```bash
-INPUT_FILE_PATH="src/test/resources/data/words.txt" JOB=com.thoughtworks.de.wordcount.WordCount ./batect run-job
+#### Run the Java version of job
+Please make sure to package the code before submitting the spark job
+```
+spark-submit --class com.thoughtworks.de.wordcount.WordCount --master local build/libs/dataengineer.jar
 ```
 
 ## Citibike
@@ -101,10 +111,10 @@ Historical bike ride `*.csv` file:
 ...
 ```
 
-##### Run the job
-
-```bash
-INPUT_FILE_PATH="src/test/resources/data/citibike.csv" JOB=com.thoughtworks.de.ingest.DailyDriver ./batect run-job
+##### Run the Java version of job
+Please make sure to package the code before submitting the spark job
+```
+spark-submit --class com.thoughtworks.de.ingest.DailyDriverJava --master local build/libs/dataengineer.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
 ```
 
 ### Distance calculation
@@ -130,12 +140,8 @@ Historical bike ride `*.parquet` files
 ```
 
 
-##### Run the job
-
-```bash
-INPUT_FILE_PATH=${output_parquest_ingest} JOB=com.thoughtworks.de.citibike.CitibikeTransformer ./batect run-job
+##### Run the Java version of job
+Please make sure to package the code before submitting the spark job
 ```
-
-## Running the code outside container
-
-If you would like to run the code in your laptop locally without containers then please follow instructions (README-LOCAL.md).
+spark-submit --class com.thoughtworks.de.citibike.CitibikeTransformer --master local target/libs/dataengineer-transformations-java -1.0-SNAPSHOT.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
+```

@@ -1,0 +1,39 @@
+containers:
+  javaspark:
+    build_directory: .
+    volumes:
+      - local: .
+        container: /app
+        options: cached
+
+
+tasks:
+
+  unit-test:
+    description: Unit tests
+    group: Test
+    run:
+      container: javaspark
+      entrypoint: scripts/unit-test.sh
+
+  style-checks:
+    description: Lint and type check
+    group: Test
+    run:
+      container: javaspark
+      entrypoint: scripts/style-checks.sh
+
+  run-job:
+    description: Run spark job
+    group: Run
+    run:
+      container: javaspark
+      entrypoint: scripts/run-job.sh
+      environment:
+        JOB: $JOB
+        INPUT_FILE_PATH: $INPUT_FILE_PATH
+
+include:
+  - type: git
+    repo: https://github.com/batect/java-bundle.git
+    ref: 0.1.0
