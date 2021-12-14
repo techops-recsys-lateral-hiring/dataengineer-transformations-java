@@ -4,47 +4,10 @@ This is a collection of jobs that are supposed to transform data.
 These jobs are using _Spark_ to process larger volumes of data and are supposed to run on a _Spark_ cluster (via `spark-submit`).
 
 ## Pre-requisites
-
-We use [`batect`](https://batect.dev/) to dockerise the tasks in this exercise. 
-`batect` is a lightweight wrapper around Docker that helps to ensure tasks run consistently (across linux, mac windows).
-With `batect`, the only dependencies that need to be installed are Docker and Java >=8. Every other dependency is managed inside Docker containers.
-Please make sure you have the following installed and can run them
-* Docker
-* Java (1.8)
-
-You could use following instructions as guidelines to install Docker and Java.
-
-```bash
-
-## Install pre-requisites needed by batect
-
-### For mac users:
-scripts/install.sh
-
-### For windows/linux users:
-#### Please ensure Docker and java >=8 is installed
-scripts\install_choco.ps1
-scripts\install.bat
-```
-
-### Run tests
-
-#### Run unit tests
-```bash
-./batect unit-test
-```
-
-#### Run integration tests
-```bash
-./batect integration-test
-```
-
-### Run style checks
-```bash
-./batect style-checks
-```
-This is running the linter and a type checker.
-
+Please make sure you have the following installed
+* Java 8
+* Gradle > 7.0
+* Apache Spark 2.4 with ability to run spark-submit
 
 ## Setup Process
 * Clone the repo
@@ -77,7 +40,7 @@ A single `*.csv` file containing data similar to:
 ...
 ```
 
-#### Run the Java version of job
+#### Run the job
 Please make sure to package the code before submitting the spark job
 ```
 spark-submit --class com.thoughtworks.de.wordcount.WordCount --master local build/libs/dataengineer.jar
@@ -111,7 +74,7 @@ Historical bike ride `*.csv` file:
 ...
 ```
 
-##### Run the Java version of job
+##### Run the job
 Please make sure to package the code before submitting the spark job
 ```
 spark-submit --class com.thoughtworks.de.ingest.DailyDriverJava --master local build/libs/dataengineer.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
@@ -140,7 +103,7 @@ Historical bike ride `*.parquet` files
 ```
 
 
-##### Run the Java version of job
+##### Run the job
 Please make sure to package the code before submitting the spark job
 ```
 spark-submit --class com.thoughtworks.de.citibike.CitibikeTransformer --master local target/libs/dataengineer-transformations-java -1.0-SNAPSHOT.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
