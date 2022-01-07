@@ -6,7 +6,6 @@ These jobs are using _Spark_ to process larger volumes of data and are supposed 
 ## Pre-requisites
 Please make sure you have the following installed
 * Java 8
-* Gradle > 7.0
 * Apache Spark 2.4 with ability to run spark-submit
 
 ## Setup Process
