@@ -2,8 +2,9 @@
 
 set -e
 
-OUTPUT_PATH="./output"
+#OUTPUT_PATH="./output"
 JAR=build/libs/dataengineer.jar
+
 
 rm -rf $OUTPUT_PATH
 
@@ -15,3 +16,4 @@ spark-submit \
     $JAR \
     $INPUT_FILE_PATH \
     $OUTPUT_PATH
+

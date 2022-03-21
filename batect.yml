@@ -32,6 +32,7 @@ tasks:
       environment:
         JOB: $JOB
         INPUT_FILE_PATH: $INPUT_FILE_PATH
+        OUTPUT_PATH: $OUTPUT_PATH
 
 include:
   - type: git
