@@ -2,7 +2,6 @@
 
 set -e
 
-#OUTPUT_PATH="./output"
 JAR=build/libs/dataengineer.jar
 
 

@@ -6,3 +6,4 @@ gradle
 .batect
 sample
 output
+target_*/
