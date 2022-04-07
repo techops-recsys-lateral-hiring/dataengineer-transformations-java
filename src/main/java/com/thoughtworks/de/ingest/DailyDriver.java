@@ -16,13 +16,13 @@ public class DailyDriver {
         SparkSession spark = SparkSession.builder().appName("Skinny Pipeline: Ingest").getOrCreate();
         log.info("Application Initialized: " + spark.sparkContext().appName());
 
-        if (args.length < 2) {
-            log.warn("Input source and output path are required");
-            System.exit(1);
-        }
+//        if (args.length < 2) {
+//            log.warn("Input source and output path are required");
+//            System.exit(1);
+//        }
 
-        final String inputSource = args[0];
-        final String outputPath = args[1];
+        final String inputSource = "src/test/resources/data/citibike.csv";
+        final String outputPath = "./DailyDriver_output";
         run(spark, inputSource, outputPath);
 
         log.info("Application Done: " + spark.sparkContext().appName());
@@ -36,6 +36,7 @@ public class DailyDriver {
                 .csv(inputSource);
         formatColumnHeaders(inputDataFrame)
                 .write()
+                .mode("overwrite")
                 .parquet(outputPath);
     }
 

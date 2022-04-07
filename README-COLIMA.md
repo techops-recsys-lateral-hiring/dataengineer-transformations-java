@@ -70,7 +70,7 @@ A single `*.csv` file containing data similar to:
 #### Run the job
 
 ```bash
-OUTPUT_PATH="./target_wordCount" INPUT_FILE_PATH="src/test/resources/data/words.txt" JOB=com.thoughtworks.de.wordcount.WordCount ./batect --docker-host=unix://$HOME/.colima/docker.sock run-job
+JOB=com.thoughtworks.de.wordcount.WordCount ./batect --docker-host=unix://$HOME/.colima/docker.sock run-job
 ```
 
 ## Citibike
@@ -104,7 +104,7 @@ Historical bike ride `*.csv` file:
 ##### Run the job
 
 ```bash
-OUTPUT_PATH="./target_citibike_ingest" INPUT_FILE_PATH="src/test/resources/data/citibike.csv" JOB=com.thoughtworks.de.ingest.DailyDriver ./batect --docker-host=unix://$HOME/.colima/docker.sock run-job
+JOB=com.thoughtworks.de.ingest.DailyDriver ./batect --docker-host=unix://$HOME/.colima/docker.sock run-job
 ```
 
 ### Distance calculation
@@ -133,7 +133,7 @@ Historical bike ride `*.parquet` files
 ##### Run the job
 
 ```bash
-OUTPUT_PATH="./target_citibike_transformer" INPUT_FILE_PATH="./target_citibike_ingest" JOB=com.thoughtworks.de.citibike.CitibikeTransformer ./batect --docker-host=unix://$HOME/.colima/docker.sock run-job
+JOB=com.thoughtworks.de.citibike.CitibikeTransformer ./batect --docker-host=unix://$HOME/.colima/docker.sock run-job
 ```
 
 ## Running the code outside container

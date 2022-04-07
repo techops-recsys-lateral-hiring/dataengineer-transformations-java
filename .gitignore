@@ -7,3 +7,6 @@ gradle
 sample
 output
 target_*/
+target
+CitibikeTransformer_output/
+DailyDriver_output/
