@@ -1,11 +1,11 @@
-# Data transformations with Java 
+# Data transformations with Java
 
 This is a collection of jobs that are supposed to transform data.
 These jobs are using _Spark_ to process larger volumes of data and are supposed to run on a _Spark_ cluster (via `spark-submit`).
 
 ## Pre-requisites
 
-We use [`batect`](https://batect.dev/) to dockerise the tasks in this exercise. 
+We use [`batect`](https://batect.dev/) to dockerise the tasks in this exercise.
 `batect` is a lightweight wrapper around Docker that helps to ensure tasks run consistently (across linux, mac windows).
 With `batect`, the only dependencies that need to be installed are Docker and Java >=8. Every other dependency is managed inside Docker containers.
 Please make sure you have the following installed and can run them
@@ -70,7 +70,7 @@ A single `*.csv` file containing data similar to:
 #### Run the job
 
 ```bash
-INPUT_FILE_PATH="src/test/resources/data/words.txt" JOB=com.thoughtworks.de.wordcount.WordCount ./batect run-job
+JOB=com.thoughtworks.de.wordcount.WordCount ./batect run-job
 ```
 
 ## Citibike
@@ -104,7 +104,7 @@ Historical bike ride `*.csv` file:
 ##### Run the job
 
 ```bash
-INPUT_FILE_PATH="src/test/resources/data/citibike.csv" JOB=com.thoughtworks.de.ingest.DailyDriver ./batect run-job
+JOB=com.thoughtworks.de.ingest.DailyDriver ./batect run-job
 ```
 
 ### Distance calculation
@@ -133,7 +133,7 @@ Historical bike ride `*.parquet` files
 ##### Run the job
 
 ```bash
-INPUT_FILE_PATH=${output_parquest_ingest} JOB=com.thoughtworks.de.citibike.CitibikeTransformer ./batect run-job
+JOB=com.thoughtworks.de.citibike.CitibikeTransformer ./batect run-job
 ```
 
 ## Running the code outside container

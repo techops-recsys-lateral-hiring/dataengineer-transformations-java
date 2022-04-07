@@ -15,13 +15,13 @@ public class CitibikeTransformer {
         SparkSession spark = SparkSession.builder().appName("Citibike Transformer").getOrCreate();
         log.info("Citibike Transformer Application Initialized: " + spark.sparkContext().appName());
 
-        if (args.length < 2) {
-            log.warn("Input source and output path are required");
-            System.exit(1);
-        }
+//        if (args.length < 2) {
+//            log.warn("Input source and output path are required");
+//            System.exit(1);
+//        }
 
-        final String ingestPath = args[0];
-        final String transformationPath = args[1];
+        final String ingestPath = "./DailyDriver_output";
+        final String transformationPath = "./CitibikeTransformer_output";
         run(spark, ingestPath, transformationPath);
 
         log.info("Citibike Application Done: " + spark.sparkContext().appName());
@@ -36,7 +36,10 @@ public class CitibikeTransformer {
 
         computeDistances.show(false);
 
-        computeDistances.write().parquet(outputPath);
+        computeDistances
+                .write()
+                .mode("overwrite")
+                .parquet(outputPath);
     }
 
     private static Dataset<Row> computeDistances(Dataset<Row> df) {

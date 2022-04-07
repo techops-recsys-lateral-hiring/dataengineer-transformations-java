@@ -18,8 +18,10 @@ public class WordCount {
         SparkSession spark = SparkSession.builder().appName("Word Count").getOrCreate();
         log.info("Application Initialized: " + spark.sparkContext().appName());
 
-        final String inputPath = (args.length > 0) ? args[0] : "./src/test/resources/data/words.txt";
-        final String outputPath = (args.length > 1) ? args[1] : "./target/test-" + LocalDateTime.now();
+//        final String inputPath = (args.length > 0) ? args[0] : "./src/test/resources/data/words.txt";
+//        final String outputPath= (args.length > 0) ? args[0] : "./src/test/resources/data/words.txt";
+        final String inputPath = "./src/test/resources/data/words.txt";
+        final String outputPath = "./target/test-" + LocalDateTime.now();
         run(spark, inputPath, outputPath);
 
         log.info("Application Done: " + spark.sparkContext().appName());
@@ -33,7 +35,9 @@ public class WordCount {
         Dataset<String> lines = spark.read().text(inputPath).as(Encoders.STRING());
         Dataset<String> splitWords = WordCountUtils.splitWords(lines);
         Dataset<String> wordCounts = WordCountUtils.countByWord(splitWords);
-        wordCounts.write()
+        wordCounts
+                .write()
+                .mode("overwrite")
                 .csv(outputPath);
 
     }

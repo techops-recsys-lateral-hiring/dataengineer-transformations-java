@@ -1,18 +1,45 @@
-# Data transformations with Java 
+# Data transformations with Java
 
 This is a collection of jobs that are supposed to transform data.
 These jobs are using _Spark_ to process larger volumes of data and are supposed to run on a _Spark_ cluster (via `spark-submit`).
 
 ## Pre-requisites
-Please make sure you have the following installed
-* Java 8
-* Apache Spark 2.4 with ability to run spark-submit
 
-## Setup Process
-* Clone the repo
-* Package the project with `./gradlew clean build`
-* Ensure that you're able to run the tests with `./gradlew test` (some are ignored)
-* Sample data is available in the `src/test/resource/data` directory
+We use [`batect`](https://batect.dev/) to dockerise the tasks in this exercise.
+`batect` is a lightweight wrapper around Docker that helps to ensure tasks run consistently (across linux, mac windows).
+With `batect`, the only dependencies that need to be installed are Docker and Java >=8. Every other dependency is managed inside Docker containers.
+Please make sure you have the following installed and can run them
+* Docker (greater than 4.0.0)
+* Java >= (1.8)
+
+You could use following instructions as guidelines to install Docker and Java.
+
+```bash
+
+## Install pre-requisites needed by batect
+
+### For mac users:
+scripts/install.sh
+
+### For windows/linux users:
+#### Please ensure Docker and java >=8 is installed
+scripts\install_choco.ps1
+scripts\install.bat
+```
+
+### Run tests
+
+#### Run unit tests
+```bash
+./batect --docker-host=unix://$HOME/.colima/docker.sock unit-test
+```
+
+### Run style checks
+```bash
+./batect --docker-host=unix://$HOME/.colima/docker.sock style-checks
+```
+This is running the linter and a type checker.
+
 
 ## Jobs
 There are two applications in this repo: Word Count, and Citibike.
@@ -39,10 +66,11 @@ A single `*.csv` file containing data similar to:
 ...
 ```
 
+
 #### Run the job
-Please make sure to package the code before submitting the spark job
-```
-spark-submit --class com.thoughtworks.de.wordcount.WordCount --master local build/libs/dataengineer.jar
+
+```bash
+JOB=com.thoughtworks.de.wordcount.WordCount ./batect --docker-host=unix://$HOME/.colima/docker.sock run-job
 ```
 
 ## Citibike
@@ -74,9 +102,9 @@ Historical bike ride `*.csv` file:
 ```
 
 ##### Run the job
-Please make sure to package the code before submitting the spark job
-```
-spark-submit --class com.thoughtworks.de.ingest.DailyDriver --master local build/libs/dataengineer.jar
+
+```bash
+JOB=com.thoughtworks.de.ingest.DailyDriver ./batect --docker-host=unix://$HOME/.colima/docker.sock run-job
 ```
 
 ### Distance calculation
@@ -103,7 +131,11 @@ Historical bike ride `*.parquet` files
 
 
 ##### Run the job
-Please make sure to package the code before submitting the spark job
+
+```bash
+JOB=com.thoughtworks.de.citibike.CitibikeTransformer ./batect --docker-host=unix://$HOME/.colima/docker.sock run-job
 ```
-spark-submit --class com.thoughtworks.de.citibike.CitibikeTransformer --master local build/libs/dataengineer.jar
-```
+
+## Running the code outside container
+
+If you would like to run the code in your laptop locally without containers then please follow instructions (README-LOCAL.md).
