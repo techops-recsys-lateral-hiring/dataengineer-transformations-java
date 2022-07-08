@@ -1,5 +1,5 @@
 #!/bin/bash
 
-set -euo pipefail
+set -e
 
-poetry run pytest tests/unit
+./gradlew clean test -x checkStyleMain -x checkStyleTest

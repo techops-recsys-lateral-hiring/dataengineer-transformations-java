@@ -177,6 +177,23 @@ function run-docker-desktop-unit-test() {
 }
 
 
+function run-local-integration-test() {
+    trace "Running integration tests on local machine"
+    ./scripts/mac_or_linux/integration-test.sh "${subcommand_opts[@]:+${subcommand_opts[@]}}"
+}
+
+
+function run-colima-integration-test() {
+    trace "Running integration tests on containers using Colima"
+    ./scripts/mac_or_linux/run-colima-integration-test.sh "${subcommand_opts[@]:+${subcommand_opts[@]}}"
+}
+
+
+function run-docker-desktop-integration-test() {
+    trace "Running integration tests on containers using Docker Desktop"
+    ./scripts/mac_or_linux/run-docker-desktop-integration-test.sh "${subcommand_opts[@]:+${subcommand_opts[@]}}"
+}
+
 
 function run-local-job() {
     trace "Running job on local machine"

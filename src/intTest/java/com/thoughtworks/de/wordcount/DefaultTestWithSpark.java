@@ -10,7 +10,7 @@ public class DefaultTestWithSpark implements Serializable {
   protected transient SparkSession spark;
 
   /**
-   * Setup method.
+   * Test setup.
    */
   @Before
   public void setUp() {

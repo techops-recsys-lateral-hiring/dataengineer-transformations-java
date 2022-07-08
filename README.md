@@ -1,14 +1,16 @@
-# Data transformations with Java 
+# Data transformations with Java
 
-This is a collection of jobs that are supposed to transform data.
-These jobs are using _Spark_ to process larger volumes of data and are supposed to run on a _Spark_ cluster (via `spark-submit`).
+This is a collection of jobs that are supposed to transform data. These jobs are using _Spark_ to process larger volumes
+of data and are supposed to run on a _Spark_ cluster (via `spark-submit`).
 
 ## Pre-requisites
 
-We use [`batect`](https://batect.dev/) to dockerise the tasks in this exercise. 
+We use [`batect`](https://batect.dev/) to dockerise the tasks in this exercise.
 `batect` is a lightweight wrapper around Docker that helps to ensure tasks run consistently (across linux, mac windows).
-With `batect`, the only dependencies that need to be installed are Docker and Java >=8. Every other dependency is managed inside Docker containers.
-If docker desktop can't be installed then Colima could be used on Mac and Linux.
+With `batect`, the only dependencies that need to be installed are Docker and Java >=8. Every other dependency is
+managed inside Docker containers. If docker desktop can't be installed then Colima could be used on Mac and Linux.
+
+> **For Windows, docker desktop is the only option for using container to run application otherwise local laptop should be set up.**
 
 Please make sure you have the following installed and can run them
 
@@ -66,7 +68,6 @@ Full list of commands for Mac and Linux users is as follows:
 | 14     | ./go.sh run-docker-desktop-job       | Run job on containers using Docker Desktop   |
 | 15     | ./go.sh Usage       | Display usage   |
 
-
 Full list of commands for Windows users is as follows:
 
 | S.No.      | Command | Action     |
@@ -81,15 +82,15 @@ Full list of commands for Windows users is as follows:
 | 8     | go.ps1 run-docker-desktop-job       | Run job on containers using Docker Desktop   |
 | 9     | go.ps1 Usage       | Display usage   |
 
-
-
 ## Jobs
+
 There are two applications in this repo: Word Count, and Citibike.
 
-Currently these exist as skeletons, and have some initial test cases which are defined but ignored.
-For each application, please un-ignore the tests and implement the missing logic.
+Currently these exist as skeletons, and have some initial test cases which are defined but ignored. For each
+application, please un-ignore the tests and implement the missing logic.
 
 ## Wordcount
+
 A NLP model is dependent on a specific input file. This job is supposed to preprocess a given text file to produce this
 input file for the NLP model (feature engineering). This job will count the occurrences of a word within the given text
 file (corpus).
@@ -97,18 +98,19 @@ file (corpus).
 There is a dump of the data lake for this under `test/resources/data/words.txt` with a text file.
 
 #### Input
+
 Simple `*.txt` file containing text.
 
 #### Output
+
 A single `*.csv` file containing data similar to:
+
 ```csv
 "word","count"
 "a","3"
 "an","5"
 ...
 ```
-
-
 
 #### Run the job using Docker Desktop on Mac or Linux
 
@@ -129,7 +131,8 @@ $env:JOB = wordcount
 JOB=wordcount ./go.sh run-colima-job 
 ```
 
-## Citibike
+### Citibike
+
 For analytics purposes the BI department of a bike share company would like to present dashboards, displaying the
 distance each bike was driven. There is a `*.csv` file that contains historical data of previous bike rides. This input
 file needs to be processed in multiple steps. There is a pipeline running these jobs.
@@ -138,11 +141,14 @@ file needs to be processed in multiple steps. There is a pipeline running these 
 
 There is a dump of the datalake for this under `test/resources/data/citibike.csv` with historical data.
 
-### Ingest
+#### Ingest
+
 Reads a `*.csv` file and transforms it to parquet format. The column names will be sanitized (whitespaces replaced).
 
 ##### Input
+
 Historical bike ride `*.csv` file:
+
 ```csv
 "tripduration","starttime","stoptime","start station id","start station name","start station latitude",...
 364,"2017-07-01 00:00:00","2017-07-01 00:06:05",539,"Metropolitan Ave & Bedford Ave",40.71534825,...
@@ -150,7 +156,9 @@ Historical bike ride `*.csv` file:
 ```
 
 ##### Output
+
 `*.parquet` files containing the same content
+
 ```csv
 "tripduration","starttime","stoptime","start_station_id","start_station_name","start_station_latitude",...
 364,"2017-07-01 00:00:00","2017-07-01 00:06:05",539,"Metropolitan Ave & Bedford Ave",40.71534825,...
@@ -176,15 +184,20 @@ $env:JOB = citibike_ingest
 JOB=citibike_ingest ./go.sh run-colima-job
 ```
 
+#### Distance calculation
 
-### Distance calculation
-This job takes bike trip information and calculates the "as the crow flies" distance traveled for each trip.
-It reads the previously ingested data parquet files.
+This job takes bike trip information and calculates the "as the crow flies" distance traveled for each trip. It reads
+the previously ingested data parquet files.
 
-Hint: For distance calculation, consider using [**Harvesine formula**](https://en.wikipedia.org/wiki/Haversine_formula) as an option.
+Hint:
+
+- For distance calculation, consider using [**Harvesine formula**](https://en.wikipedia.org/wiki/Haversine_formula) as
+  an option.
 
 ##### Input
+
 Historical bike ride `*.parquet` files
+
 ```csv
 "tripduration",...
 364,...
@@ -192,10 +205,12 @@ Historical bike ride `*.parquet` files
 ```
 
 ##### Outputs
+
 `*.parquet` files containing historical data with distance column containing the calculated distance.
+
 ```csv
 "tripduration",...,"distance"
-364,...,1.34`
+364,...,1.34
 ...
 ```
 
@@ -220,7 +235,7 @@ $env:JOB = citibike_distance_calculation
 JOB=citibike_distance_calculation ./go.sh run-colima-job
 ```
 
-
 ## Running the code outside container
 
-If you would like to run the code in your laptop locally without containers then please follow instructions [here](README-LOCAL.md).
+If you would like to run the code in your laptop locally without containers then please follow
+instructions [here](README-LOCAL.md).
