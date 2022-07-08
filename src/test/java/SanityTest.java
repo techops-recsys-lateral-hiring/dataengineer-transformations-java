@@ -1,16 +1,17 @@
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class SanityTest {
 
-    @Test
-    public void testTruth() {
-        assertEquals(true, true);
-    }
+  @Test
+  public void testTruth() {
+    assertEquals(true, true);
+  }
 
-    @Test
-    public void testFalse() {
-        assertNotEquals(true,false);
-    }
+  @Test
+  public void testFalse() {
+    assertNotEquals(true, false);
+  }
 }
