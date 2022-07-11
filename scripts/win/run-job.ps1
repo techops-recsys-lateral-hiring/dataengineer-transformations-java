@@ -38,4 +38,4 @@ switch ($jobName)
 
 rm -rf $OUTPUT_PATH
 
-poetry run spark-submit --master local --py-files dist/data_transformations-*.whl $JOB_ENTRY_POINT $INPUT_FILE_PATH $OUTPUT_PATH
+spark-submit --master local --class $JOB $JAR $INPUT_FILE_PATH $OUTPUT_PATH
