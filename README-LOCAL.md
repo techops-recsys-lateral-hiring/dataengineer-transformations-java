@@ -76,7 +76,7 @@ Historical bike ride `*.csv` file:
 ##### Run the job
 Please make sure to package the code before submitting the spark job
 ```
-spark-submit --class com.thoughtworks.de.ingest.DailyDriverJava --master local build/libs/dataengineer.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
+spark-submit --class com.thoughtworks.de.ingest.DailyDriver --master local build/libs/dataengineer.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
 ```
 
 ### Distance calculation
@@ -103,7 +103,7 @@ Historical bike ride `*.parquet` files
 
 
 ##### Run the job
-Please make sure to package the code before submitting the spark job
+Please make sure to package the code before submitting the spark job, the input location is same as the previous ingest job output. Make sure to choose different output location than previous one.
 ```
-spark-submit --class com.thoughtworks.de.citibike.CitibikeTransformer --master local target/libs/dataengineer-transformations-java -1.0-SNAPSHOT.jar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
+spark-submit --class com.thoughtworks.de.citibike.CitibikeTransformer --master local build/libs/dataengineerjar $(INPUT_LOCATION) $(OUTPUT_LOCATION)
 ```

@@ -52,6 +52,10 @@ while true; do
         operations+=( start-colima )
         shift
         ;;
+    stop-colima)
+        operations+=( stop-colima )
+        shift
+        ;;
     run-local-unit-test)
         operations+=( run-local-unit-test )
         shift
@@ -117,6 +121,7 @@ function usage() {
     trace "    install-with-docker-desktop       Install the application requirements along with docker desktop"
     trace "    install-with-colima       Install the application requirements along with colima"
     trace "    start-colima     Start Colima"
+    trace "    stop-colima      Stop Colima"
     trace "    run-local-unit-test     Run unit tests on local machine"
     trace "    run-colima-unit-test     Run unit tests on containers using Colima"
     trace "    run-docker-desktop-unit-test     Run unit tests on containers using Docker Desktop"
@@ -156,6 +161,11 @@ function install-with-colima() {
 function start-colima() {
     trace "Starting Colima"
     ./scripts/mac_or_linux/start-colima.sh "${subcommand_opts[@]:+${subcommand_opts[@]}}"
+}
+
+function stop-colima() {
+    trace "Stopping Colima"
+    ./scripts/mac_or_linux/stop-colima.sh "${subcommand_opts[@]:+${subcommand_opts[@]}}"
 }
 
 
@@ -218,6 +228,9 @@ if contains install-with-colima "${operations[@]}"; then
 fi
 if contains start-colima "${operations[@]}"; then
     start-colima
+fi
+if contains stop-colima "${operations[@]}"; then
+    stop-colima
 fi
 if contains run-local-unit-test "${operations[@]}"; then
     run-local-unit-test

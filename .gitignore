@@ -1,8 +1,12 @@
 .idea
 build
+target
 gradle
 ./gradle
 .gradle
 .batect
 sample
 output
+output_int
+.DS_Store
+

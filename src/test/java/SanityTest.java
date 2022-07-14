@@ -6,7 +6,7 @@ public class SanityTest {
 
     @Test
     public void testTruth() {
-        assertEquals(true, true);
+        assertEquals(false, false);
     }
 
     @Test

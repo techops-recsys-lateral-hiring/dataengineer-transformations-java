@@ -58,9 +58,6 @@ Full list of commands for Mac and Linux users is as follows:
 | 6      | ./go.sh run-local-unit-test       | Run unit tests on local machine   |
 | 7      | ./go.sh run-colima-unit-test       | Run unit tests on containers using Colima   |
 | 8      | ./go.sh run-docker-desktop-unit-test       | Run unit tests on containers using Docker Desktop   |
-| 9      | ./go.sh run-local-integration-test       | Run integration tests on local machine   |
-| 10      | ./go.sh run-colima-integration-test       | Run integration tests on containers using Colima   |
-| 11     | ./go.sh run-docker-desktop-integration-test       | Run integration tests on containers using Docker Desktop   |
 | 12     | ./go.sh run-local-job       | Run job on local machine   |
 | 13     | ./go.sh run-colima-job       | Run job on containers using Colima   |
 | 14     | ./go.sh run-docker-desktop-job       | Run job on containers using Docker Desktop   |
