@@ -17,7 +17,7 @@ tasks:
       entrypoint: scripts/mac_or_linux/unit-test.sh
 
   integration-test:
-    description: Unit tests
+    description: Integration tests
     group: Test
     run:
       container: javaspark
