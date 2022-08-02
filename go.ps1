@@ -33,7 +33,7 @@ switch ($action)
     }
     run-local-unit-test {
         Write-Host  "Running unit tests on local machine"
-        poetry run pytest tests/unit
+        scripts/win/unit-test.ps1
         Break
     }
     run-docker-desktop-unit-test {
@@ -43,7 +43,7 @@ switch ($action)
     }
     run-local-integration-test {
         Write-Host "Running integration tests on local machine"
-        scripts/win/run-local-integration-test.ps1
+        scripts/win/integration-test.ps1
         Break
     }
     run-docker-desktop-integration-test {

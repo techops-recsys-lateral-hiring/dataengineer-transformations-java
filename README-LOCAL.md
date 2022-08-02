@@ -7,8 +7,8 @@ of data and are supposed to run on a _Spark_ cluster (via `spark-submit`).
 
 Please make sure you have the following installed
 
-* Java 8
-* Apache Spark 2.4 with ability to run spark-submit
+* Java 11
+* Apache Spark 3.2 with ability to run spark-submit
 
 ## Setup Process
 
