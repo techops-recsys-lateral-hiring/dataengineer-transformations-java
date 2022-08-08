@@ -1,5 +1,3 @@
-poetry build
-
 $JOB = [System.Environment]::GetEnvironmentVariable('JOB')
 $jobName = $JOB.ToLower()
 
@@ -31,11 +29,8 @@ switch ($jobName)
         exit 1
         Break
     }
-
-
 }
 
-
-rm -rf $OUTPUT_PATH
+Remove-Item -Force -Recurse $OUTPUT_PATH
 
 spark-submit --master local --class $JOB $JAR $INPUT_FILE_PATH $OUTPUT_PATH
