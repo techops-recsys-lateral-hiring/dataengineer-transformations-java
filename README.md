@@ -174,7 +174,7 @@ JOB=citibike_ingest ./go.sh run-docker-desktop-job
 ##### Run the job using Docker Desktop on Windows
 
 ```bash
-$env:JOB = citibike_ingest
+$env:JOB = "citibike_ingest"
 .\go.ps1 run-docker-desktop-job
 ```
 

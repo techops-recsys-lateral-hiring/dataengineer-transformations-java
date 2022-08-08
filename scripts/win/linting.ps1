@@ -1,7 +1,3 @@
-#!/bin/bash
-
-set -e
-
 echo "Running checkstyle on Java source files"
 ./gradlew checkstyleMain
 
