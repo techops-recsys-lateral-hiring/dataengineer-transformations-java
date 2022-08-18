@@ -5,3 +5,5 @@ build
 .batect
 sample
 output
+target
+output_int
